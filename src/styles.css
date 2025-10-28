@@ -129,16 +129,16 @@ main {
   color: white;
   backdrop-filter: blur(20px);
   background:
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.37),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 2px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   position: relative;
   overflow: hidden;
@@ -152,13 +152,19 @@ main {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.08) 0%, transparent 25%),
-    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.03) 0%, transparent 25%),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04) 0%, transparent 30%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, transparent 50%, rgba(0, 0, 0, 0.02) 100%),
-    linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0%, transparent 50%, rgba(0, 0, 0, 0.01) 100%);
+    /* Premium light refraction effects */
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 30%),
+    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.08) 0%, transparent 30%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 40%),
+    /* Diagonal light streaks */
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 40%, rgba(0, 0, 0, 0.04) 60%, transparent 100%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.06) 0%, transparent 30%, rgba(0, 0, 0, 0.03) 70%, transparent 100%),
+    /* Subtle grain texture */
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.02) 3px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.02) 3px);
   pointer-events: none;
   border-radius: 16px;
+  mix-blend-mode: overlay;
 }
 
 .card::after {
@@ -169,37 +175,55 @@ main {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.08) 1px, transparent 0),
-    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.04) 1px, transparent 0),
-    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
-  background-size: 20px 20px, 15px 15px, 100% 100%;
-  opacity: 0.15;
+    /* Fine dot pattern for texture */
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.12) 1px, transparent 0),
+    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.06) 1px, transparent 0),
+    /* Diagonal shimmer pattern */
+    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.04) 48%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 52%, transparent 70%),
+    /* Cross-hatch subtle pattern */
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, transparent 2px, transparent 4px, rgba(255, 255, 255, 0.01) 6px),
+    repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.01) 0px, transparent 2px, transparent 4px, rgba(255, 255, 255, 0.01) 6px);
+  background-size: 20px 20px, 15px 15px, 200% 200%, 8px 8px, 8px 8px;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+  opacity: 0.3;
   pointer-events: none;
   border-radius: 16px;
+  animation: shimmer 8s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0 0, 0 0, 0% 0%, 0 0, 0 0; }
+  100% { background-position: 0 0, 0 0, 200% 0%, 0 0, 0 0; }
 }
 
 .card:hover {
   transform: translateY(-2px);
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.45),
-    inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 2px 2px rgba(255, 255, 255, 0.35),
+    inset 0 -2px 2px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
   background:
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
 }
 
 .card:hover::before {
   background:
-    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.12) 0%, transparent 25%),
-    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.04) 0%, transparent 25%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 50%, rgba(0, 0, 0, 0.03) 100%);
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2) 0%, transparent 30%),
+    radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 40%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, rgba(0, 0, 0, 0.06) 60%, transparent 100%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%, rgba(0, 0, 0, 0.04) 70%, transparent 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.03) 3px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.03) 3px);
 }
 
 .card:hover::after {
-  opacity: 0.5;
+  opacity: 0.4;
+  animation-duration: 6s;
 }
 
 .card.completed {
