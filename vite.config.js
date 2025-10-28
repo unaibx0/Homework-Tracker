@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
   plugins: [
@@ -22,7 +21,7 @@ export default defineConfig({
               cacheName: 'supabase-cache',
               expiration: {
                 maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
+                maxAgeSeconds: 86400
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -32,7 +31,7 @@ export default defineConfig({
         ]
       },
       includeAssets: ['icon-192.png', 'icon-512.png'],
-      manifest: false // Use the existing manifest.json file
+      manifest: false
     })
   ],
   build: {
@@ -40,7 +39,7 @@ export default defineConfig({
     assetsDir: 'assets',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: undefined
       }
     }
   },
@@ -49,6 +48,6 @@ export default defineConfig({
     host: true
   },
   define: {
-    global: 'globalThis',
+    global: 'globalThis'
   }
 })
