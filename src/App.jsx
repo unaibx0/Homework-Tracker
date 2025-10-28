@@ -36,14 +36,19 @@ export default function App(){
     fetchTasks()
     // real-time listener with debounce for better performance
     let fetchTimeout
-    const channel = supabase.channel('public:tasks')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, payload => {
+    try {
+      const channel = supabase.channel('public:tasks')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, payload => {
+          clearTimeout(fetchTimeout)
+          fetchTimeout = setTimeout(() => fetchTasks(), 100)
+        }).subscribe()
+      return () => {
         clearTimeout(fetchTimeout)
-        fetchTimeout = setTimeout(() => fetchTasks(), 100)
-      }).subscribe()
-    return () => {
-      clearTimeout(fetchTimeout)
-      supabase.removeChannel(channel)
+        supabase.removeChannel(channel)
+      }
+    } catch (error) {
+      console.error('Real-time subscription error:', error)
+      return () => clearTimeout(fetchTimeout)
     }
   },[])
 
@@ -59,11 +64,20 @@ export default function App(){
   }, [showAddTask])
 
   const fetchTasks = useCallback(async () => {
-    setLoading(true)
-    const { data, error } = await supabase.from('tasks').select('*').order('due_date', {ascending:true})
-    if(error){ console.error(error) }
-    else setTasks(data || [])
-    setLoading(false)
+    try {
+      setLoading(true)
+      const { data, error } = await supabase.from('tasks').select('*').order('due_date', {ascending:true})
+      if(error){
+        console.error('Fetch error:', error)
+        setTasks([])
+      }
+      else setTasks(data || [])
+    } catch (error) {
+      console.error('Fetch exception:', error)
+      setTasks([])
+    } finally {
+      setLoading(false)
+    }
   }, [])
 
   const addTask = useCallback(async (e) => {
