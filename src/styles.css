@@ -415,7 +415,7 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(25px);
   min-width: 140px;
-  animation: slideUp 0.2s ease-out;
+  animation: contextMenuAppear 0.2s ease-out;
   overflow: hidden;
 }
 
@@ -533,6 +533,17 @@ main {
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contextMenuAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .add-form h2 {

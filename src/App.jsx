@@ -216,12 +216,13 @@ export default function App(){
                   aria-label="More actions"
                   onClick={(e) => {
                     e.stopPropagation()
-                    setLongPressTask(t)
-                    setShowContextMenu(true)
                     // Position context menu at center of viewport
                     const vw = window.innerWidth || document.documentElement.clientWidth
                     const vh = window.innerHeight || document.documentElement.clientHeight
                     setContextMenuPosition({ x: vw / 2, y: vh / 2 })
+                    // Set task and show menu after position is set
+                    setLongPressTask(t)
+                    setShowContextMenu(true)
                     try { window.navigator.vibrate && window.navigator.vibrate(10) } catch {}
                   }}
                 >
