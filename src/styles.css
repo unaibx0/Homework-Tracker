@@ -449,14 +449,6 @@ main {
   flex-shrink: 0;
 }
 
-.complete-btn {
-  color: #10b981;
-}
-
-.complete-btn:hover {
-  color: #059669;
-  background: rgba(16, 185, 129, 0.1);
-}
 
 .modal-overlay {
   position: fixed;

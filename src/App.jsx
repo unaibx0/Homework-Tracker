@@ -233,14 +233,6 @@ export default function App(){
                     )}
                   </p>
                 </div>
-                <div className="card-actions">
-                  <button onClick={()=>toggleComplete(t.id, t.completed)} className="btn complete-btn" title={t.completed ? "Mark incomplete" : "Mark complete"}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points={t.completed ? "20,6 9,17 4,12" : "12,2 22,8 18,18 6,12 2,8"}></polyline>
-                      {!t.completed && <polyline points="22,8 18,18 6,12"></polyline>}
-                    </svg>
-                  </button>
-                </div>
               </article>
             );
           })
