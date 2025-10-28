@@ -327,36 +327,19 @@ main {
 }
 
 .btn.del {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(239, 68, 68, 0.3);
-  color: #ef4444;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
   box-shadow:
-    0 4px 15px rgba(239, 68, 68, 0.2),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8),
-    0 0 8px rgba(239, 68, 68, 0.3);
-  font-size: 14px;
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
 }
 
 .btn.del:hover {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
   box-shadow:
-    0 6px 20px rgba(239, 68, 68, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.9),
-    0 0 12px rgba(239, 68, 68, 0.5),
-    0 0 20px rgba(239, 68, 68, 0.2);
-  transform: scale(1.05);
-}
-
-.delete-icon {
-  font-size: 16px;
-  display: inline-block;
-  transition: transform 0.2s ease, filter 0.2s ease;
-  filter: drop-shadow(0 1px 2px rgba(239, 68, 68, 0.3));
-}
-
-.btn.del:hover .delete-icon {
-  transform: scale(1.1);
-  filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.5));
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
 }
 
 .fab {
