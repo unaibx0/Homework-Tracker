@@ -14,8 +14,11 @@
     <link rel="modulepreload" href="/src/App.jsx" />
     
     <!-- PWA manifest -->
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
     
     <title>Homework Tracker</title>
     
@@ -37,20 +40,6 @@
         <p style="color:#94a3b8">Loading...</p>
       </div>
     </div>
-    <script>
-      // Register service worker with improved error handling
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js', { scope: '/' })
-            .then(reg => {
-              console.log('SW registered');
-              // Check for updates periodically
-              setInterval(() => reg.update(), 60000);
-            })
-            .catch(err => console.log('SW registration failed:', err));
-        });
-      }
-    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

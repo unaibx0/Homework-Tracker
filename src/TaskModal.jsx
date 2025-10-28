@@ -7,6 +7,16 @@ const STUDENTS = [
   { key: 'HAD', name: 'Hadia', color: '#f97316' }
 ]
 
+const SUBJECT_EMOJIS = {
+  'Math': '🔢',
+  'English': '📖',
+  'Urdu': '🇵🇰',
+  'Islamiat': '🕌',
+  'History': '📜',
+  'Geography': '🌍',
+  'Science': '🧪'
+}
+
 const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science']
 
 export default function TaskModal({ editingTask, onClose, onSubmit }) {
@@ -24,7 +34,7 @@ export default function TaskModal({ editingTask, onClose, onSubmit }) {
           />
           <select name="subject" defaultValue={editingTask?.subject || ''} required>
             <option value="" disabled>📚 Select Subject</option>
-            {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+            {SUBJECTS.map(s => <option key={s} value={s}>{SUBJECT_EMOJIS[s]} {s}</option>)}
           </select>
           <textarea
             name="notes"

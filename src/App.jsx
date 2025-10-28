@@ -12,6 +12,16 @@ const STUDENTS = [
   { key: 'HAD', name: 'Hadia', color: '#f97316' }
 ]
 
+const SUBJECT_EMOJIS = {
+  'Math': '🔢',
+  'English': '📖',
+  'Urdu': '🇵🇰',
+  'Islamiat': '🕌',
+  'History': '📜',
+  'Geography': '🌍',
+  'Science': '🧪'
+}
+
 const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science']
 
 // Memoized color utilities for performance
@@ -169,7 +179,7 @@ export default function App(){
                     <h3>{t.title}</h3>
                   </div>
                   <p className="subject">
-                    {t.subject}
+                    {SUBJECT_EMOJIS[t.subject] || '📚'} {t.subject}
                     {isTomorrow && <span className="alarm-emoji">🚨</span>}
                     {isOverdue && <span className="alarm-emoji">⚠️</span>}
                   </p>
