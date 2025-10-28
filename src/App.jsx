@@ -200,7 +200,7 @@ export default function App(){
                     </svg>
                   </button>
                   <button onClick={()=>removeTask(t.id)} className="btn del" title="Delete task">
-                    🗑️
+                    <span className="delete-icon">🗑️</span>
                   </button>
                 </div>
               </article>
