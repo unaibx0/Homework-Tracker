@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef, lazy, Suspense } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, lazy, Suspense } from 'react'
 import { supabase } from './lib/supabase'
 import dayjs from 'dayjs'
 import { v4 as uuidv4 } from 'uuid'
 
-const LONG_PRESS_DURATION = 500 // milliseconds
-const MOVE_THRESHOLD = 8 // pixels to cancel long press when user scrolls/drags
 
 // Lazy load modal component for better initial load
 const TaskModal = lazy(() => import('./TaskModal'))
@@ -47,11 +45,6 @@ export default function App(){
   const [longPressTask, setLongPressTask] = useState(null)
   const [showContextMenu, setShowContextMenu] = useState(false)
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 })
-  const [pressingId, setPressingId] = useState(null)
-  // Long-press handling refs for robust press-and-hold UX
-  const pressTimerRef = useRef(null)
-  const startPosRef = useRef({ x: 0, y: 0 })
-  const cancelledRef = useRef(false)
 
   // Clamp popup into viewport to avoid overflow near edges
   const clampPosition = useCallback((x, y) => {
@@ -94,13 +87,6 @@ export default function App(){
     return () => document.removeEventListener('keydown', handleEscape)
   }, [showAddTask])
 
-  // Ensure any pending long-press timers are cleared on unmount
-  useEffect(() => {
-    return () => {
-      if (pressTimerRef.current) clearTimeout(pressTimerRef.current)
-      pressTimerRef.current = null
-    }
-  }, [])
 
   const fetchTasks = useCallback(async () => {
     try {
@@ -163,56 +149,6 @@ export default function App(){
     setLongPressTask(null)
   }, [fetchTasks])
 
-  // Improved long-press: pointer-based, movement threshold, positions at finger/cursor, vibration feedback
-  const handleLongPressStart = useCallback((task, event) => {
-    if (!event) return
-    const native = event.nativeEvent || event
-    const clientX = native.clientX ?? (native.touches && native.touches[0]?.clientX) ?? null
-    const clientY = native.clientY ?? (native.touches && native.touches[0]?.clientY) ?? null
-  
-    cancelledRef.current = false
-    startPosRef.current = { x: clientX ?? 0, y: clientY ?? 0 }
-    setPressingId(task.id)
-  
-    const clear = () => {
-      if (pressTimerRef.current) clearTimeout(pressTimerRef.current)
-      pressTimerRef.current = null
-      window.removeEventListener('pointerup', onUp)
-      window.removeEventListener('pointercancel', onUp)
-      window.removeEventListener('pointermove', onMove)
-      setPressingId(null)
-    }
-  
-    const onUp = () => clear()
-  
-    const onMove = (ev) => {
-      const dx = (ev.clientX ?? 0) - startPosRef.current.x
-      const dy = (ev.clientY ?? 0) - startPosRef.current.y
-      if (Math.hypot(dx, dy) > MOVE_THRESHOLD) {
-        cancelledRef.current = true
-        clear()
-      }
-    }
-  
-    window.addEventListener('pointerup', onUp, { once: true })
-    window.addEventListener('pointercancel', onUp, { once: true })
-    window.addEventListener('pointermove', onMove)
-  
-    pressTimerRef.current = setTimeout(() => {
-      if (cancelledRef.current) return
-      setLongPressTask(task)
-      setShowContextMenu(true)
-      if (clientX != null && clientY != null) {
-        setContextMenuPosition(clampPosition(clientX, clientY))
-      } else {
-        const rect = event.currentTarget.getBoundingClientRect()
-        const pos = clampPosition(rect.left + rect.width / 2, rect.top + rect.height / 2)
-        setContextMenuPosition(pos)
-      }
-      try { window.navigator.vibrate && window.navigator.vibrate(10) } catch {}
-      clear()
-    }, LONG_PRESS_DURATION)
-  }, [clampPosition])
 
   const handleContextMenuClose = useCallback(() => {
     setShowContextMenu(false)
@@ -268,18 +204,9 @@ export default function App(){
             
             return (
               <article
-                className={`card ${t.completed ? 'completed' : ''} ${pressingId === t.id ? 'pressing' : ''}`}
+                className={`card ${t.completed ? 'completed' : ''}`}
                 key={t.id}
                 style={{background: `rgba(${hexToRgb(t.color)}, 0.85)`}}
-                onPointerDown={(e) => handleLongPressStart(t, e)}
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  setLongPressTask(t);
-                  setShowContextMenu(true);
-                  const pos = clampPosition(e.clientX, e.clientY);
-                  setContextMenuPosition(pos);
-                  try { window.navigator.vibrate && window.navigator.vibrate(10) } catch {}
-                }}
               >
                 <div className="student-chip">
                   <div className="chip" style={{background: t.color, boxShadow: `0 0 10px ${t.color}`, borderColor: darkenColor(t.color, 0.4)}}>{t.student}</div>
@@ -291,8 +218,10 @@ export default function App(){
                     e.stopPropagation()
                     setLongPressTask(t)
                     setShowContextMenu(true)
-                    const rect = e.currentTarget.getBoundingClientRect()
-                    setContextMenuPosition({ x: rect.left + rect.width / 2, y: rect.bottom + 8 })
+                    // Position context menu at center of viewport
+                    const vw = window.innerWidth || document.documentElement.clientWidth
+                    const vh = window.innerHeight || document.documentElement.clientHeight
+                    setContextMenuPosition({ x: vw / 2, y: vh / 2 })
                     try { window.navigator.vibrate && window.navigator.vibrate(10) } catch {}
                   }}
                 >

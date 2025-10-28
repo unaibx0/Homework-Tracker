@@ -651,8 +651,8 @@ main {
 /* 3-dots menu button for explicit actions (Edit/Delete) */
 .card-menu-btn {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  bottom: 12px;
+  right: 12px;
   width: 36px;
   height: 36px;
   display: inline-flex;
