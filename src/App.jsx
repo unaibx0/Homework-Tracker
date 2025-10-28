@@ -179,7 +179,7 @@ export default function App(){
                     <h3>{t.title}</h3>
                   </div>
                   <p className="subject">
-                    {SUBJECT_EMOJIS[t.subject] || '📚'} {t.subject}
+                    {t.subject}
                     {isTomorrow && <span className="alarm-emoji">🚨</span>}
                     {isOverdue && <span className="alarm-emoji">⚠️</span>}
                   </p>
