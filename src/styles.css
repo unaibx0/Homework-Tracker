@@ -363,6 +363,35 @@ main {
   text-shadow: 0 0 2px rgba(239, 68, 68, 0.3);
 }
 
+.question-emoji {
+  font-size: 14px;
+  filter:
+    drop-shadow(0 0 3px #ff0000)
+    drop-shadow(0 0 6px #ff0000)
+    drop-shadow(0 0 9px #ff0000)
+    drop-shadow(0 0 12px #ff0000);
+  animation: question-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes question-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter:
+      drop-shadow(0 0 3px #ff0000)
+      drop-shadow(0 0 6px #ff0000)
+      drop-shadow(0 0 9px #ff0000)
+      drop-shadow(0 0 12px #ff0000);
+  }
+  50% {
+    transform: scale(1.1);
+    filter:
+      drop-shadow(0 0 5px #ff0000)
+      drop-shadow(0 0 10px #ff0000)
+      drop-shadow(0 0 15px #ff0000)
+      drop-shadow(0 0 20px #ff0000);
+  }
+}
+
 .card-actions {
   display: flex;
   gap: 10px;

@@ -236,7 +236,7 @@ export default function App(){
                     Due: {t.due_date ? dayjs(t.due_date).format('dddd YYYY-MM-DD') : '—'}
                     {t.due_date && (
                       <span className={isOverdue ? 'urgent' : isTomorrow ? 'tomorrow' : ''}>
-                        ({isOverdue ? `${Math.abs(daysLeft)} day${Math.abs(daysLeft) === 1 ? '' : 's'} overdue` : isTomorrow ? 'Tomorrow' : daysLeft === 0 ? 'Today' : `${daysLeft} day${daysLeft === 1 ? '' : 's'} left`})
+                        {isOverdue ? `(${Math.abs(daysLeft)} day${Math.abs(daysLeft) === 1 ? '' : 's'} overdue)` : isTomorrow ? '(Tomorrow)' : daysLeft === 0 ? <span className="question-emoji">❓</span> : `(${daysLeft} day${daysLeft === 1 ? '' : 's'} left)`}
                       </span>
                     )}
                   </p>
