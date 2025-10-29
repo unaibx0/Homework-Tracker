@@ -132,7 +132,6 @@ export default function App(){
   }, [])
 
   const removeTask = useCallback(async (id) => {
-    if(!confirm('Delete task?')) return
     const { error } = await supabase.from('tasks').delete().eq('id', id)
     if(error) console.error(error)
     else fetchTasks()
