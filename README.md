@@ -45,10 +45,10 @@ create table public.tasks (
 ```sql
 insert into public.tasks (title, subject, notes, due_date, student, color)
 values
-('Awami khitabat- Seerat Tayyba', 'Urdu', 'Read chapter and summarize', '2025-10-28', 'MAH', '#7c3aed'),
-('Hist 22-25', 'General', '', '2025-10-29', 'MHM', '#16a34a'),
-('Sci 3.4-3.6', 'General', '', '2025-10-30', 'MHM', '#16a34a'),
-('Algebra', 'General', '', '2025-10-30', 'MAH', '#7c3aed');
+('Awami khitabat- Seerat Tayyba', 'Urdu', 'Read chapter and summarize', '2025-10-28', 'Mahveen', '#7c3aed'),
+('Hist 22-25', 'General', '', '2025-10-29', 'Muhammad', '#16a34a'),
+('Sci 3.4-3.6', 'General', '', '2025-10-30', 'Muhammad', '#16a34a'),
+('Algebra', 'General', '', '2025-10-30', 'Mahveen', '#7c3aed');
 ```
 
 ## Notes

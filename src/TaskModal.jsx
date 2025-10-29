@@ -2,9 +2,9 @@ import React from 'react'
 import dayjs from 'dayjs'
 
 const STUDENTS = [
-  { key: 'MHM', name: 'Muhammad', color: '#16a34a' },
-  { key: 'MAH', name: 'Mahveen', color: '#7c3aed' },
-  { key: 'HAD', name: 'Hadia', color: '#f97316' }
+  { key: 'Muhammad', name: 'Muhammad', color: '#16a34a' },
+  { key: 'Mahveen', name: 'Mahveen', color: '#7c3aed' },
+  { key: 'Hadia', name: 'Hadia', color: '#f97316' }
 ]
 
 const SUBJECT_ICONS = {
@@ -14,6 +14,13 @@ const SUBJECT_ICONS = {
       <line x1="9" y1="9" x2="15" y2="15"/>
       <line x1="15" y1="9" x2="9" y2="15"/>
       <line x1="9" y1="12" x2="15" y2="12"/>
+    </svg>
+  ),
+  'ICT': (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+      <line x1="8" y1="21" x2="16" y2="21"/>
+      <line x1="12" y1="17" x2="12" y2="21"/>
     </svg>
   ),
   'English': (
@@ -63,7 +70,7 @@ const SUBJECT_ICONS = {
   )
 }
 
-const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science']
+const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science', 'ICT']
 
 export default function TaskModal({ editingTask, onClose, onSubmit }) {
   return (
@@ -109,7 +116,7 @@ export default function TaskModal({ editingTask, onClose, onSubmit }) {
 
           <div className="form-group">
             <label htmlFor="student">Student</label>
-            <select id="student" name="student" defaultValue={editingTask?.student || 'MHM'} required>
+            <select id="student" name="student" defaultValue={editingTask?.student || 'Muhammad'} required>
               {STUDENTS.map(s=> (
                 <option key={s.key} value={s.key}>
                   {s.name}

@@ -8,13 +8,20 @@ import { v4 as uuidv4 } from 'uuid'
 const TaskModal = lazy(() => import('./TaskModal'))
 
 const STUDENTS = [
-  { key: 'MHM', name: 'Muhammad', color: '#16a34a' },
-  { key: 'MAH', name: 'Mahveen', color: '#7c3aed' },
-  { key: 'HAD', name: 'Hadia', color: '#f97316' }
+  { key: 'Muhammad', name: 'Muhammad', color: '#16a34a' },
+  { key: 'Mahveen', name: 'Mahveen', color: '#7c3aed' },
+  { key: 'Hadia', name: 'Hadia', color: '#f97316' }
 ]
 
+// Backward compatibility mapping for existing tasks
+const STUDENT_MAPPING = {
+  'MHM': 'Muhammad',
+  'MAH': 'Mahveen',
+  'HAD': 'Hadia'
+}
 
-const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science']
+
+const SUBJECTS = ['Math', 'English', 'Urdu', 'Islamiat', 'History', 'Geography', 'Science', 'ICT']
 
 // Memoized color utilities for performance
 const darkenColor = (hex, percent) => {
@@ -199,7 +206,7 @@ export default function App(){
                 style={{background: `rgba(${hexToRgb(t.color)}, 0.85)`}}
               >
                 <div className="student-chip">
-                  <div className="chip" style={{background: t.color, boxShadow: `0 0 10px ${t.color}`, borderColor: darkenColor(t.color, 0.4)}}>{t.student}</div>
+                  <div className="chip" style={{background: t.color, boxShadow: `0 0 10px ${t.color}`, borderColor: darkenColor(t.color, 0.4)}}>{STUDENTS.find(s => s.key === (STUDENT_MAPPING[t.student] || t.student))?.name || (STUDENT_MAPPING[t.student] || t.student)}</div>
                 </div>
                 <button
                   className="card-menu-btn"
